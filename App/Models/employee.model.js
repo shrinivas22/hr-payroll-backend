@@ -11,6 +11,9 @@ module.exports = (sequelize, Sequelize) => {
       lastname: {
         type: Sequelize.STRING
       },
+      gender: {
+        type: Sequelize.STRING
+      },
       email: {
         type: Sequelize.STRING
       },
@@ -21,7 +24,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING
       },
       SSN: {
-        type: Sequelize.INTEGER, allowNull: false
+        type: Sequelize.STRING, allowNull: false
       },
       designation:{
         type: Sequelize.STRING
@@ -32,9 +35,9 @@ module.exports = (sequelize, Sequelize) => {
       rating:{
         type: Sequelize.INTEGER,
       },
-      image:{
-        type: Sequelize.BLOB('long')
-      },
+      // image:{
+      //   type: Sequelize.BLOB('long')
+      // },
       grosspay: {
         type: Sequelize.INTEGER
       },

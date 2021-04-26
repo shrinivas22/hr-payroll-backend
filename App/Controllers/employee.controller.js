@@ -21,19 +21,21 @@ function calcPayable(emp) {
     var stateTax = (emp.statetax == "" ? 0 : emp.statetax / 100) * grossPay;
     var federalTax = (emp.federaltax == "" ? 0 : emp.federaltax / 100) * grossPay;
     var reimbursements = emp.reimbursements == "" ? 0 : emp.reimbursements;
-    var bonus = emp.bonus == "" ? 0 : emp.bonus;
+    var rating = emp.rating == "" ? 0 : emp.rating;
+    var bonus = emp.bonus == "" ? 0 : emp.bonus*rating;
     var healthInsurance = (emp.healthinsurance == "" ? 0 : emp.healthinsurance / 100) * grossPay;
     var socialSecurityTax = (emp.socialsecuritytax == "" ? 0 : emp.socialsecuritytax / 100) * grossPay;
     var deductions = stateTax + federalTax + healthInsurance + socialSecurityTax;
     var payableSalary = grossPay - deductions + reimbursements + bonus;
-    return payableSalary
+    return [payableSalary, bonus]
 }
 
 exports.createEmployee = (req, res) => {
     json: req
     var emp = req.body;
 
-    emp.payablesalary = calcPayable(emp);
+    emp.payablesalary = calcPayable(emp)[0];
+    emp.bonus= calcPayable(emp)[1];
 
     console.log('--------------------->' + emp.payablesalary, emp);
     employee.create(emp)
@@ -52,7 +54,8 @@ exports.createEmployee = (req, res) => {
 exports.updateEmployee = (req, res) => {
     json: req
     var emp = req.body;
-    emp.payablesalary = calcPayable(emp);
+    emp.payablesalary = calcPayable(emp)[0];
+    emp.bonus= calcPayable(emp)[1];
     var id = req.params.id;
     console.log('update--------------------->' + emp);
     employee.update(emp, {
@@ -91,13 +94,6 @@ exports.getAllEmployees = (req, res) => {
     employee
         .findAll()
         .then(employees => {
-            employees.forEach(element => {
-                console.log(element.image);
-                if(element.image!=null)
-                    element.image = element.image.toString('base64');
-                console.log(element.image);
-            })
-
             console.log(`get all employees output: ${JSON.stringify(employees)}`);
             res.json(employees);
         })
@@ -114,12 +110,8 @@ exports.getEmployeeById = (req, res) => {
     employee
         .findByPk(employeeId)
         .then(employees => {
-            console.log(employees.image);
-            if(element.image!=null)
-                employees.image = employees.image.toString('base64');
-            console.log(employees.image);
             console.log(`get all employees output: ${JSON.stringify(employees)}`);
-            res.send(employees);
+            res.json(employees);
         })
         .catch(err => {
             res.status(500).send({
