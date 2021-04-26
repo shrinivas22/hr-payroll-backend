@@ -5,7 +5,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:4200"
+  origin:  'https://hr-payroll-frontend.herokuapp.com' 
 };
 
 app.use(cors(corsOptions));
