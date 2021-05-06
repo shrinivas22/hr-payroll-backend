@@ -1,8 +1,7 @@
-const { authJwt } = require("../middleware");
+const { authJwt } = require("../Middleware");
 
 module.exports = app => {
   const employees = require("../Controllers/employee.controller.js");
-
   var router = require("express").Router();
 
   // Create a new Employee
