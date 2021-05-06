@@ -13,15 +13,15 @@ app.use(bodyParser.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
-const db = require("./App/Models/index");
+const db = require("./App/Models/index.js");
 
 db.sequelize.sync();
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to hr payroll application." });
 });
-require("./App/Routes/auth.routes")(app);
-require("./App/Routes/employee.routes")(app);
+require("./App/Routes/auth.routes.js")(app);
+require("./App/Routes/employee.routes.js")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
