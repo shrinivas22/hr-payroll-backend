@@ -4,16 +4,6 @@ const db = require("../Models");
 const employee = db.employee;
 const Op = db.Sequelize.Op;
 
-//var Employee = sequelize.model()
-// let basedir=require('path').resolve(__dirname, '..');
-// let normalizedPath = require('path').join(basedir, "Models")
-//     require('fs').readdirSync(normalizedPath).forEach((file) => {
-//         sequelize.import('./models/' + file)
-//     })
-
-//require('fs').readdirSync(normalizedPath).sequelize.import('../Models/' + file)
-
-//let {User, Permissions} = sequelize.models
 
 function calcPayable(emp) {
 
@@ -31,12 +21,9 @@ function calcPayable(emp) {
 }
 
 exports.createEmployee = (req, res) => {
-    json: req
     var emp = req.body;
-
     emp.payablesalary = calcPayable(emp)[0];
     emp.bonus= calcPayable(emp)[1];
-
     console.log('--------------------->' + emp.payablesalary, emp);
     employee.create(emp)
         .then(data => {
@@ -45,14 +32,13 @@ exports.createEmployee = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Tutorial."
+                    err.message || "Some error occurred while creating the Employee."
             });
         });
 };
 
 
 exports.updateEmployee = (req, res) => {
-    json: req
     var emp = req.body;
     emp.payablesalary = calcPayable(emp)[0];
     emp.bonus= calcPayable(emp)[1];
@@ -67,7 +53,7 @@ exports.updateEmployee = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Tutorial."
+                    err.message || "Some error occurred while Updating the Employee."
             });
         });
 };
@@ -84,7 +70,7 @@ exports.deleteEmployee = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Tutorial."
+                    err.message || "Some error occurred while deleting the Employee."
             });
         });
 };
@@ -100,10 +86,11 @@ exports.getAllEmployees = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving tutorials."
+                    err.message || "Some error occurred while retrieving employees."
             });
         });
 }
+
 exports.getEmployeeById = (req, res) => {
     console.log('Inside getAllEmployees');
     var employeeId = req.params.id;
@@ -116,30 +103,8 @@ exports.getEmployeeById = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving employees."
+                    err.message || "Some error occurred while retrieving the employee."
             });
         });
 };
 
-
-
-
-
-
-// module.exports = function (app, models) {
-
-//     var employeeModel = models.employeeModel;
-
-
-//     app.get("/api/test", (req, res) => { res.send('server is alive and listening for requests'); });
-//     app.post("/api/add", createEmployee);
-//     app.get("/api/main", getAllEmployees);
-//     app.delete("/api/main/:employeeId", deleteEmployee);
-//     app.get("/api/main/:employeeId", getEmployeeById);
-//     app.put("/api/main/:employeeId", updateEmployee);
-
-
-
-
-
-// };

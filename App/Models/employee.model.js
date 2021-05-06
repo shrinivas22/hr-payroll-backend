@@ -1,5 +1,3 @@
-
-  
 module.exports = (sequelize, Sequelize) => {
     const Employee = sequelize.define("employees", {
       id:{
@@ -35,23 +33,20 @@ module.exports = (sequelize, Sequelize) => {
       rating:{
         type: Sequelize.INTEGER,
       },
-      // image:{
-      //   type: Sequelize.BLOB('long')
-      // },
       grosspay: {
         type: Sequelize.INTEGER
       },
       statetax: {
-        type: Sequelize.INTEGER
+        type: Sequelize.DECIMAL(3,2)
       },
       federaltax: {
-        type: Sequelize.INTEGER
+        type: Sequelize.DECIMAL(3,2)
       },
       healthinsurance: {
-        type: Sequelize.INTEGER
+        type: Sequelize.DECIMAL(3,2)
       },
       socialsecuritytax: {
-        type: Sequelize.INTEGER
+        type: Sequelize.DECIMAL(3,2)
       },
       reimbursements: {
         type: Sequelize.INTEGER
@@ -60,7 +55,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.INTEGER
       },
       payablesalary: {
-        type: Sequelize.INTEGER
+        type: Sequelize.DECIMAL(20,2)
       },
     },
     {

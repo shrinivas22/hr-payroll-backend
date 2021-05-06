@@ -22,6 +22,7 @@ db.sequelize.sync();
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to hr payroll application." });
 });
+require("./App/Routes/auth.routes")(app);
 require("./App/Routes/employee.routes")(app);
 
 // set port, listen for requests
