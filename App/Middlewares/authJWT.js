@@ -1,6 +1,6 @@
 
 const jwt = require("jsonwebtoken");
-const config = require("../Config/auth.config.js");
+const config = require("../Configs/auth.config.js");
 // Used to verify the token passed in through the headers from the 
 //client using the jwt.verify method.
 verifyToken = (req, res, next) => {
